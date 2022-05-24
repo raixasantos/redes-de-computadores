@@ -11,7 +11,8 @@ import com.google.gson.Gson;
 
 public class IMDB {
 
-    public static void main(String[] args) {
+    public Dados callingAPIService() {
+        Dados dados = new Dados();
         try {
             String url = "https://imdb-api.com/en/API/Search/k_cdmc38z1/inception%202010";
 
@@ -35,13 +36,15 @@ public class IMDB {
             conn.disconnect();
 
             Gson gson = new Gson();
-            Dados dados = gson.fromJson(new String(output.getBytes()), Dados.class);
+            dados = gson.fromJson(new String(output.getBytes()), Dados.class);
 
-            System.out.println("SEARCH TYPE: " + dados.getSearchType());
-            System.out.println("EXPRESSION: " + dados.getExpression());
+            // System.out.println("SEARCH TYPE: " + dados.getSearchType());
+            // System.out.println("EXPRESSION: " + dados.getExpression());
 
         } catch (IOException ex) {
             Logger.getLogger(IMDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return dados;
     }
 }
