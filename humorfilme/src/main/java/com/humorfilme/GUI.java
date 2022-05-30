@@ -9,7 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +27,7 @@ public class GUI{
 
     private JFrame frame;
     private MyPanel backGround;
+    private ArrayList<JRadioButton> botoes;
     static JLabel back;
 
     public static void main(String[] args) {
@@ -44,16 +48,18 @@ public class GUI{
         initialize();
     }
     public ImageIcon getImageURL(String path, int width, int height) {
+        BufferedImage teste=null;
         try{
             URL imageURL = new URL(path);
-            ImageIcon teste = new ImageIcon(imageURL);
-            Image mudar = teste.getImage();
-            Image dimensionar = mudar.getScaledInstance(width, height, mudar.SCALE_SMOOTH);
-            return new ImageIcon(dimensionar);
-        }catch(Exception e){
+            teste = ImageIO.read(imageURL);
+            
+        }catch(IOException e){
             e.getStackTrace();
         }
-        return null;
+        ImageIcon icon = new ImageIcon(teste);
+        Image mudar = icon.getImage();
+        Image dimensionar = mudar.getScaledInstance(width, height, mudar.SCALE_SMOOTH);
+        return new ImageIcon(dimensionar);
     }
 
     private void initialize() {
@@ -70,45 +76,53 @@ public class GUI{
         lblQuestaoHumor.setBounds(300, 30, 175, 14);
 
         JLabel lblFeliz = new JLabel("Feliz");
-        lblFeliz.setBounds(300, 60, 46, 14);
+        lblFeliz.setBounds(100, 60, 46, 14);
 
+        botoes = new ArrayList<JRadioButton>();
         JRadioButton radioButton_feliz = new JRadioButton("");
-        radioButton_feliz.setBounds(302, 75, 20, 20);
+        radioButton_feliz.setBounds(100, 75, 20, 20);
         radioButton_feliz.setOpaque(false);
+        botoes.add(radioButton_feliz);
 
         JLabel lblPraBaixo = new JLabel("Pra baixo");
-        lblPraBaixo.setBounds(390, 60, 80, 14);
+        lblPraBaixo.setBounds(200, 60, 80, 14);
 
         JRadioButton radioButton_praBaixo = new JRadioButton("");
-        radioButton_praBaixo.setBounds(406, 75, 20, 20);
+        radioButton_praBaixo.setBounds(200, 75, 20, 20);
         radioButton_praBaixo.setOpaque(false);
+        botoes.add(radioButton_praBaixo);
 
         JLabel lblOpcao3 = new JLabel("Opção3");
-        lblOpcao3.setBounds(484, 60, 80, 14);
+        lblOpcao3.setBounds(300, 60, 80, 14);
 
         JRadioButton radioButton_opcao3 = new JRadioButton("Opção3");
-        radioButton_opcao3.setBounds(500, 75, 20, 20);
+        radioButton_opcao3.setBounds(300, 75, 20, 20);
         radioButton_opcao3.setOpaque(false);
+        botoes.add(radioButton_opcao3);
         
-        JLabel lblOpcao4 = new JLabel("Pra baixo");
-        lblOpcao4.setBounds(390, 60, 80, 14);
+        JLabel lblOpcao4 = new JLabel("Opção4");
+        lblOpcao4.setBounds(400, 60, 80, 14);
 
-        JRadioButton radioButton_lblOpcao4 = new JRadioButton("");
-        radioButton_lblOpcao4.setBounds(406, 75, 20, 20);
-        radioButton_lblOpcao4.setOpaque(false);
+        JRadioButton radioButton_opcao4 = new JRadioButton("");
+        radioButton_opcao4.setBounds(400, 75, 20, 20);
+        radioButton_opcao4.setOpaque(false);
+        botoes.add(radioButton_opcao4);
 
-        JLabel lblOpcao5 = new JLabel("Opção3");
-        lblOpcao5.setBounds(484, 60, 80, 14);
+        JLabel lblOpcao5 = new JLabel("Opção5");
+        lblOpcao5.setBounds(500, 60, 80, 14);
 
-        JRadioButton radioButton_opcao5 = new JRadioButton("Opção3");
+        JRadioButton radioButton_opcao5 = new JRadioButton("Opção5");
         radioButton_opcao5.setBounds(500, 75, 20, 20);
         radioButton_opcao5.setOpaque(false);
+        botoes.add(radioButton_opcao5);
 
         ButtonGroup opcao = new ButtonGroup();
 
         opcao.add(radioButton_feliz);
         opcao.add(radioButton_praBaixo);
         opcao.add(radioButton_opcao3);
+        opcao.add(radioButton_opcao4);
+        opcao.add(radioButton_opcao5);
 
         JButton btnSubmit = new JButton("Submit");     
         btnSubmit.setBackground(Color.BLUE);    
@@ -129,6 +143,10 @@ public class GUI{
         principal.add(radioButton_praBaixo);
         principal.add(lblOpcao3);
         principal.add(radioButton_opcao3);
+        principal.add(lblOpcao4);
+        principal.add(radioButton_opcao4);
+        principal.add(lblOpcao5);
+        principal.add(radioButton_opcao5);
         principal.add(btnSubmit);
         principal.add(sugestoes);
         principal.setLayout(new BorderLayout());
@@ -137,21 +155,37 @@ public class GUI{
 
         btnSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                String texto="";
-                if(((!radioButton_feliz.isSelected())&&(!radioButton_praBaixo.isSelected())))
+                String urlImagem="";
+                boolean escolheu=false;
+                for(JRadioButton botao:botoes){
+                    if(botao.isSelected()){
+                        escolheu=true;
+                        break;
+                    }else{
+                        escolheu=false;
+                    }
+                }
+                if(!escolheu)
                     sugestoes.setText("Selecione uma opção!");
                 else {
                     if(radioButton_feliz.isSelected()){
-                        texto = "Feliz!";
+                        urlImagem = "https://raw.githubusercontent.com/Danilo25/Danilo25.github.io/master/Crocobite0000.jpg";
                     }else if(radioButton_praBaixo.isSelected()){
-                        texto = "Triste!";
+                        urlImagem = "https://3.bp.blogspot.com/-VOzfr65GNOo/WdNZ9EB4XRI/AAAAAAAABhA/ElyD407GPE0j2w9vQaL5UoAdOUs1RSCNgCLcBGAs/s1600/water-209901_960_720.jpg";
+                    }else if(radioButton_opcao3.isSelected()){
+                        urlImagem = "https://mozgate.co.mz/wp-content/uploads/2019/09/Rede-de-computadores.jpg";
+                    }else if(radioButton_opcao4.isSelected()){
+                        urlImagem = "http://www.nintendoworldreport.com/media/33891/4/57.jpg";
+                    }else if(radioButton_opcao5.isSelected()){
+                        urlImagem = "https://site.uniaraxa.edu.br/wp-content/uploads/2019/12/sistemas.jpeg";
                     }
                     IMDB imdb = new IMDB();
                     
-                    sugestoes.setText("Testando conexão com IMDB: " + texto + imdb.callingAPIService().getExpression() );
+                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() );
 
                     JLabel imagens = new JLabel();
-                    imagens.setIcon(getImageURL("https://raw.githubusercontent.com/Danilo25/Danilo25.github.io/master/Crocobite0000.jpg", 100, 100));
+                    imagens.setIcon(getImageURL(urlImagem, 100, 100));
+                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() + "|" + imagens.getIcon() );
                     sugestoes.setVerticalAlignment(SwingConstants.TOP);
                     imagens.setBounds(190, 30, 100, 100);
                     imagens.setHorizontalAlignment(SwingConstants.CENTER);
