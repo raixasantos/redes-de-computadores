@@ -2,6 +2,7 @@ package com.humorfilme;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Random;
 import java.io.IOException;
 import java.util.logging.*;
 import java.net.HttpURLConnection;
@@ -11,10 +12,11 @@ import com.google.gson.Gson;
 
 public class IMDB {
 
-    public Dados callingAPIService() {
+    public String callingAPIService(String mood) {
         Dados dados = new Dados();
+        Object filme = new Object();
         try {
-            String url = "https://imdb-api.com/en/API/Search/k_cdmc38z1/inception%202010";
+            String url = "https://imdb-api.com/en/API/Keyword/k_n2bh6cfw/" + mood;
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 
@@ -24,7 +26,6 @@ public class IMDB {
             if (conn.getResponseCode() != 200) {
                 System.out.println("Erro " + conn.getResponseCode() + " ao obter dados da URL " + url);
             }
-
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
             String output = "";
@@ -36,7 +37,11 @@ public class IMDB {
             conn.disconnect();
 
             Gson gson = new Gson();
+            Random rand = new Random();
             dados = gson.fromJson(new String(output.getBytes()), Dados.class);
+            int randNum = rand.nextInt(dados.getItems().length);
+            filme = dados.getItemByPosition(randNum);
+            System.out.println(filme);
 
             // System.out.println("SEARCH TYPE: " + dados.getSearchType());
             // System.out.println("EXPRESSION: " + dados.getExpression());
@@ -44,7 +49,6 @@ public class IMDB {
         } catch (IOException ex) {
             Logger.getLogger(IMDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return dados;
+        return filme.toString();
     }
 }

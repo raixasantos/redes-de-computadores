@@ -181,11 +181,11 @@ public class GUI{
                     }
                     IMDB imdb = new IMDB();
                     
-                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() );
+                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService("sad"));
 
                     JLabel imagens = new JLabel();
                     imagens.setIcon(getImageURL(urlImagem, 100, 100));
-                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() + "|" + imagens.getIcon() );
+                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService("sad") + "|" + imagens.getIcon() );
                     sugestoes.setVerticalAlignment(SwingConstants.TOP);
                     imagens.setBounds(190, 30, 100, 100);
                     imagens.setHorizontalAlignment(SwingConstants.CENTER);
