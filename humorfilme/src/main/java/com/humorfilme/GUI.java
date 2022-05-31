@@ -193,7 +193,7 @@ public class GUI{
                     sugestoes.setHorizontalTextPosition(SwingConstants.CENTER);
                     sugestoes.setVerticalTextPosition(SwingConstants.TOP);
                     sugestoes.setHorizontalAlignment(SwingConstants.CENTER);
-                    sugestoes.setVerticalAlignment(SwingConstants.BOTTOM);
+                    sugestoes.setVerticalAlignment(SwingConstants.TOP);
                     
                 } 
             }
