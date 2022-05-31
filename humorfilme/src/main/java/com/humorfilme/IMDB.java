@@ -15,8 +15,9 @@ public class IMDB {
     public String callingAPIService(String mood) {
         Dados dados = new Dados();
         Object filme = new Object();
+        String[] str_arr = {""};
         try {
-            String url = "https://imdb-api.com/en/API/Keyword/k_n2bh6cfw/" + mood;
+            String url = "https://imdb-api.com/en/API/Keyword/k_cdmc38z1/" + mood;
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 
@@ -41,13 +42,10 @@ public class IMDB {
             dados = gson.fromJson(new String(output.getBytes()), Dados.class);
             int randNum = rand.nextInt(dados.getItems().length);
             filme = dados.getItemByPosition(randNum);
-
-            // System.out.println("SEARCH TYPE: " + dados.getSearchType());
-            // System.out.println("EXPRESSION: " + dados.getExpression());
-
+            str_arr = filme.toString().split(",");
         } catch (IOException ex) {
             Logger.getLogger(IMDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return filme.toString();
+        return str_arr[1].substring(7);
     }
 }

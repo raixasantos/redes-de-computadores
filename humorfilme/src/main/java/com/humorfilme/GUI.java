@@ -72,14 +72,14 @@ public class GUI{
         frame.setContentPane(backGround);
         
 
-        JLabel lblQuestaoHumor = new JLabel("Qual é o seu humor do dia?");
-        lblQuestaoHumor.setBounds(300, 30, 175, 14);
+        JLabel lblQuestaoHumor = new JLabel("Descubra qual filme combina com o seu humor hoje: ");
+        lblQuestaoHumor.setBounds(170, 30, 500, 14);
 
         JLabel lblFeliz = new JLabel("Feliz");
         lblFeliz.setBounds(100, 60, 46, 14);
 
         botoes = new ArrayList<JRadioButton>();
-        JRadioButton radioButton_feliz = new JRadioButton("");
+        JRadioButton radioButton_feliz = new JRadioButton("Opção1");
         radioButton_feliz.setBounds(100, 75, 20, 20);
         radioButton_feliz.setOpaque(false);
         botoes.add(radioButton_feliz);
@@ -87,29 +87,29 @@ public class GUI{
         JLabel lblPraBaixo = new JLabel("Pra baixo");
         lblPraBaixo.setBounds(200, 60, 80, 14);
 
-        JRadioButton radioButton_praBaixo = new JRadioButton("");
+        JRadioButton radioButton_praBaixo = new JRadioButton("Opção2");
         radioButton_praBaixo.setBounds(200, 75, 20, 20);
         radioButton_praBaixo.setOpaque(false);
         botoes.add(radioButton_praBaixo);
 
-        JLabel lblOpcao3 = new JLabel("Opção3");
-        lblOpcao3.setBounds(300, 60, 80, 14);
+        JLabel lblOpcao3 = new JLabel("Inspirado(a)");
+        lblOpcao3.setBounds(300, 60, 95, 14);
 
         JRadioButton radioButton_opcao3 = new JRadioButton("Opção3");
         radioButton_opcao3.setBounds(300, 75, 20, 20);
         radioButton_opcao3.setOpaque(false);
         botoes.add(radioButton_opcao3);
         
-        JLabel lblOpcao4 = new JLabel("Opção4");
+        JLabel lblOpcao4 = new JLabel("Com raiva");
         lblOpcao4.setBounds(400, 60, 80, 14);
 
-        JRadioButton radioButton_opcao4 = new JRadioButton("");
+        JRadioButton radioButton_opcao4 = new JRadioButton("Opção4");
         radioButton_opcao4.setBounds(400, 75, 20, 20);
         radioButton_opcao4.setOpaque(false);
         botoes.add(radioButton_opcao4);
 
-        JLabel lblOpcao5 = new JLabel("Opção5");
-        lblOpcao5.setBounds(500, 60, 80, 14);
+        JLabel lblOpcao5 = new JLabel("Apaixonado(a)");
+        lblOpcao5.setBounds(500, 60, 150, 14);
 
         JRadioButton radioButton_opcao5 = new JRadioButton("Opção5");
         radioButton_opcao5.setBounds(500, 75, 20, 20);
@@ -124,16 +124,16 @@ public class GUI{
         opcao.add(radioButton_opcao4);
         opcao.add(radioButton_opcao5);
 
-        JButton btnSubmit = new JButton("Submit");     
+        JButton btnSubmit = new JButton("Descobrir");     
         btnSubmit.setBackground(Color.BLUE);    
         btnSubmit.setForeground(Color.WHITE);
-        btnSubmit.setBounds(330, 120, 89, 23);
+        btnSubmit.setBounds(280, 120, 140, 23);
 
         JLabel sugestoes = new JLabel();
         //sugestoes.setLayout(new GridBagLayout());
         sugestoes.setBorder( BorderFactory.createTitledBorder( "" ) ) ;
         sugestoes.setHorizontalAlignment( SwingConstants.CENTER );
-        sugestoes.setBounds(120, 200, 460, 150);
+        sugestoes.setBounds(80, 200, 560, 250);
 
         JLabel principal = new JLabel();
         principal.add(lblQuestaoHumor);
@@ -165,23 +165,29 @@ public class GUI{
                         escolheu=false;
                     }
                 }
+                String mood = "sad";
                 if(!escolheu)
                     sugestoes.setText("Selecione uma opção!");
                 else {
                     if(radioButton_feliz.isSelected()){
                         urlImagem = "https://raw.githubusercontent.com/Danilo25/Danilo25.github.io/master/Crocobite0000.jpg";
+                        mood = "feliz";
                     }else if(radioButton_praBaixo.isSelected()){
                         urlImagem = "https://3.bp.blogspot.com/-VOzfr65GNOo/WdNZ9EB4XRI/AAAAAAAABhA/ElyD407GPE0j2w9vQaL5UoAdOUs1RSCNgCLcBGAs/s1600/water-209901_960_720.jpg";
+                        mood = "pra baixo";
                     }else if(radioButton_opcao3.isSelected()){
                         urlImagem = "https://mozgate.co.mz/wp-content/uploads/2019/09/Rede-de-computadores.jpg";
+                        mood = "inspirado(a)";
                     }else if(radioButton_opcao4.isSelected()){
                         urlImagem = "http://www.nintendoworldreport.com/media/33891/4/57.jpg";
+                        mood = "com raiva";
                     }else if(radioButton_opcao5.isSelected()){
                         urlImagem = "https://site.uniaraxa.edu.br/wp-content/uploads/2019/12/sistemas.jpeg";
+                        mood = "apaixonado(a)";
                     }
                     IMDB imdb = new IMDB();
                     
-                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService("sad"));
+                    sugestoes.setText("Para o humor " + mood + ": " + imdb.callingAPIService("happy"));
                     sugestoes.setIcon(getImageURL(urlImagem, 100, 100));
                     
                     sugestoes.setHorizontalTextPosition(SwingConstants.CENTER);
