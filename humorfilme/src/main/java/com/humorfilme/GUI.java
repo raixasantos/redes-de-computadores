@@ -68,7 +68,7 @@ public class GUI{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        backGround = new MyPanel("teste.jfif");
+        backGround = new MyPanel("back.jfif");
         frame.setContentPane(backGround);
         
 
@@ -182,16 +182,12 @@ public class GUI{
                     IMDB imdb = new IMDB();
                     
                     sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() );
-
-                    JLabel imagens = new JLabel();
-                    imagens.setIcon(getImageURL(urlImagem, 100, 100));
-                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() + "|" + imagens.getIcon() );
-                    sugestoes.setVerticalAlignment(SwingConstants.TOP);
-                    imagens.setBounds(190, 30, 100, 100);
-                    imagens.setHorizontalAlignment(SwingConstants.CENTER);
-                    imagens.setVerticalAlignment(SwingConstants.BOTTOM);
-                    imagens.setLayout(new BorderLayout());
-                    sugestoes.add(imagens);
+                    sugestoes.setIcon(getImageURL(urlImagem, 100, 100));
+                    
+                    sugestoes.setHorizontalTextPosition(SwingConstants.CENTER);
+                    sugestoes.setVerticalTextPosition(SwingConstants.TOP);
+                    sugestoes.setHorizontalAlignment(SwingConstants.CENTER);
+                    sugestoes.setVerticalAlignment(SwingConstants.BOTTOM);
                     
                 } 
             }
