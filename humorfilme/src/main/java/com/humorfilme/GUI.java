@@ -47,20 +47,7 @@ public class GUI{
     public GUI() {
         initialize();
     }
-    public ImageIcon getImageURL(String path, int width, int height) {
-        BufferedImage teste=null;
-        try{
-            URL imageURL = new URL(path);
-            teste = ImageIO.read(imageURL);
-            
-        }catch(IOException e){
-            e.getStackTrace();
-        }
-        ImageIcon icon = new ImageIcon(teste);
-        Image mudar = icon.getImage();
-        Image dimensionar = mudar.getScaledInstance(width, height, mudar.SCALE_SMOOTH);
-        return new ImageIcon(dimensionar);
-    }
+    
 
     private void initialize() {
         frame = new JFrame();
@@ -68,7 +55,7 @@ public class GUI{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        backGround = new MyPanel("teste.jfif");
+        backGround = new MyPanel("back.jfif");
         frame.setContentPane(backGround);
         
 
@@ -132,8 +119,16 @@ public class GUI{
         JLabel sugestoes = new JLabel();
         //sugestoes.setLayout(new GridBagLayout());
         sugestoes.setBorder( BorderFactory.createTitledBorder( "" ) ) ;
-        sugestoes.setHorizontalAlignment( SwingConstants.CENTER );
+        sugestoes.setLayout(null);;
         sugestoes.setBounds(120, 200, 460, 150);
+
+        JLabel img1 = new JLabel();
+        img1.setLayout(null);
+        img1.setBounds(120, 250, 100, 100);
+        
+        JPanel imagens = new JPanel();
+        imagens.setBackground(new Color(0,0,0,100));
+        
 
         JLabel principal = new JLabel();
         principal.add(lblQuestaoHumor);
@@ -150,8 +145,12 @@ public class GUI{
         principal.add(btnSubmit);
         principal.add(sugestoes);
         principal.setLayout(new BorderLayout());
-        principal.setBackground(new Color(0,0,0,100));;
+        principal.setBackground(new Color(0,0,0,100));
+        img1.setLayout(new BorderLayout());
+        img1.setBackground(new Color(0,0,0,100));;
+        //principal.add(imagens);
         frame.add(principal);
+        //frame.add(img1);
 
         btnSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -181,20 +180,32 @@ public class GUI{
                     }
                     IMDB imdb = new IMDB();
                     
+                    
                     sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() );
-
-                    JLabel imagens = new JLabel();
-                    imagens.setIcon(getImageURL(urlImagem, 100, 100));
-                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() + "|" + imagens.getIcon() );
+                    sugestoes.setIcon(getImageURL(urlImagem, 100, 100));
+                    
                     sugestoes.setVerticalAlignment(SwingConstants.TOP);
-                    imagens.setBounds(190, 30, 100, 100);
-                    imagens.setHorizontalAlignment(SwingConstants.CENTER);
-                    imagens.setVerticalAlignment(SwingConstants.BOTTOM);
-                    imagens.setLayout(new BorderLayout());
-                    sugestoes.add(imagens);
+                    sugestoes.setHorizontalAlignment(SwingConstants.CENTER);
+                    sugestoes.setVerticalTextPosition(SwingConstants.TOP);
+                    sugestoes.setHorizontalTextPosition(SwingConstants.CENTER);
+                    
                     
                 } 
             }
         });
+    }
+    public ImageIcon getImageURL(String path, int width, int height) {
+        BufferedImage teste=null;
+        try{
+            URL imageURL = new URL(path);
+            teste = ImageIO.read(imageURL);
+            
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+        ImageIcon icon = new ImageIcon(teste);
+        Image mudar = icon.getImage();
+        Image dimensionar = mudar.getScaledInstance(width, height, mudar.SCALE_SMOOTH);
+        return new ImageIcon(dimensionar);
     }
 }
