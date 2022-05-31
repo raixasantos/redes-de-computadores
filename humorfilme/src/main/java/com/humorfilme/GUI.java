@@ -181,7 +181,7 @@ public class GUI{
                     }
                     IMDB imdb = new IMDB();
                     
-                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService().getExpression() );
+                    sugestoes.setText("Testando conexão com IMDB: " + imdb.callingAPIService("sad"));
                     sugestoes.setIcon(getImageURL(urlImagem, 100, 100));
                     
                     sugestoes.setHorizontalTextPosition(SwingConstants.CENTER);
