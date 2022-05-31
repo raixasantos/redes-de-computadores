@@ -41,7 +41,6 @@ public class IMDB {
             dados = gson.fromJson(new String(output.getBytes()), Dados.class);
             int randNum = rand.nextInt(dados.getItems().length);
             filme = dados.getItemByPosition(randNum);
-            System.out.println(filme);
 
             // System.out.println("SEARCH TYPE: " + dados.getSearchType());
             // System.out.println("EXPRESSION: " + dados.getExpression());
